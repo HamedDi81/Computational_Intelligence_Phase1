@@ -22,6 +22,6 @@ model=kmeans.fit(Train_features)
 x_pred = model.predict(Train_features)
 # test_pred = model.predict(x_test)
 print(f"shape of pred x is {x_pred.shape}")
-apply(Train_features,image_labels)
-
-
+model = PCA(n_components=2)
+x_train = model.fit_transform(Train_features)
+apply(x_train,image_labels)
