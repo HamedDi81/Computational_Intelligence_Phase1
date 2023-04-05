@@ -1,5 +1,5 @@
 from load_features_H import load_data , load_data_with_domain_label
-from Evaluation import apply
+from Evaluation import cluster_labels
 from sklearn import datasets
 from sklearn.decomposition import PCA
 import numpy as np
@@ -28,62 +28,62 @@ x_pred= model.predict(train_features)
 print(f"shape of pred x is {x_pred.shape}")
 cm = confusion_matrix(domain_labels,x_pred)
 ari = adjusted_rand_score(domain_labels , x_pred)
-accuracy_score
-count =np.zeros([5,5])
-for i,data in enumerate(x_pred):
-    if data==0:
-        if domain_labels[i] ==0:
-            count[0,0] +=1
-        elif domain_labels[i] == 1:
-            count[0,1] +=1
-        elif domain_labels[i]==2 :
-            count[0,2] +=1
-        elif domain_labels[i] == 3:
-            count[0,3] +=1
-        elif domain_labels[i]==4 :
-            count[0,4] +=1
-    if data==1:
-        if domain_labels[i] ==0:
-            count[1,0] +=1
-        elif domain_labels[i] == 1:
-            count[1,1] +=1
-        elif domain_labels[i]==2 :
-            count[1,2] +=1
-        elif domain_labels[i] == 3:
-            count[1,3] +=1
-        elif domain_labels[i]==4 :
-            count[1,4] +=1
-    if data==2:
-        if domain_labels[i] ==0:
-            count[2,0] +=1
-        elif domain_labels[i] == 1:
-            count[2,1] +=1
-        elif domain_labels[i]==2 :
-            count[2,2] +=1
-        elif domain_labels[i] == 3:
-            count[2,3] +=1
-        elif domain_labels[i]==4 :
-            count[2,4] +=1
-    if data==3:
-        if domain_labels[i] ==0:
-            count[3,0] +=1
-        elif domain_labels[i] == 1:
-            count[3,1] +=1
-        elif domain_labels[i]==2 :
-            count[3,2] +=1
-        elif domain_labels[i] == 3:
-            count[3,3] +=1
-        elif domain_labels[i]==4 :
-            count[3,4] +=1
-    if data==4:
-        if domain_labels[i] ==0:
-            count[4,0] +=1
-        elif domain_labels[i] == 1:
-            count[4,1] +=1
-        elif domain_labels[i]==2 :
-            count[4,2] +=1
-        elif domain_labels[i] == 3:
-            count[4,3] +=1
-        elif domain_labels[i]==4 :
-            count[4,4] +=1
-print(count)
+# accuracy_score
+# count =np.zeros([5,5])
+# for i,data in enumerate(x_pred):
+#     if data==0:
+#         if domain_labels[i] ==0:
+#             count[0,0] +=1
+#         elif domain_labels[i] == 1:
+#             count[0,1] +=1
+#         elif domain_labels[i]==2 :
+#             count[0,2] +=1
+#         elif domain_labels[i] == 3:
+#             count[0,3] +=1
+#         elif domain_labels[i]==4 :
+#             count[0,4] +=1
+#     if data==1:
+#         if domain_labels[i] ==0:
+#             count[1,0] +=1
+#         elif domain_labels[i] == 1:
+#             count[1,1] +=1
+#         elif domain_labels[i]==2 :
+#             count[1,2] +=1
+#         elif domain_labels[i] == 3:
+#             count[1,3] +=1
+#         elif domain_labels[i]==4 :
+#             count[1,4] +=1
+#     if data==2:
+#         if domain_labels[i] ==0:
+#             count[2,0] +=1
+#         elif domain_labels[i] == 1:
+#             count[2,1] +=1
+#         elif domain_labels[i]==2 :
+#             count[2,2] +=1
+#         elif domain_labels[i] == 3:
+#             count[2,3] +=1
+#         elif domain_labels[i]==4 :
+#             count[2,4] +=1
+#     if data==3:
+#         if domain_labels[i] ==0:
+#             count[3,0] +=1
+#         elif domain_labels[i] == 1:
+#             count[3,1] +=1
+#         elif domain_labels[i]==2 :
+#             count[3,2] +=1
+#         elif domain_labels[i] == 3:
+#             count[3,3] +=1
+#         elif domain_labels[i]==4 :
+#             count[3,4] +=1
+#     if data==4:
+#         if domain_labels[i] ==0:
+#             count[4,0] +=1
+#         elif domain_labels[i] == 1:
+#             count[4,1] +=1
+#         elif domain_labels[i]==2 :
+#             count[4,2] +=1
+#         elif domain_labels[i] == 3:
+#             count[4,3] +=1
+#         elif domain_labels[i]==4 :
+#             count[4,4] +=1
+# print(count)
