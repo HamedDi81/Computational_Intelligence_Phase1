@@ -4,6 +4,7 @@ from sklearn import datasets
 from sklearn.decomposition import PCA
 import numpy as np
 from sklearn.metrics import accuracy_score,confusion_matrix,adjusted_rand_score
+import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans, DBSCAN, MeanShift
 from sklearn.model_selection import train_test_split
 
@@ -87,7 +88,6 @@ kmeans = KMeans(n_clusters= 5 )
 #         elif domain_labels[i]==4 :
 #             count[4,4] +=1
 # print(count)
-import matplotlib.pyplot as plt
 scores = []
 for j in np.unique(Image_labels):
     kmeans.fit(Train_features[np.where(Image_labels == j )])
@@ -101,7 +101,7 @@ for j in np.unique(Image_labels):
     #test = kmeans.predict(train_features)       #predict the test data
     #x2 = test.copy()                    #store a copy of predicted test datas
     y_pred = np.select([x_pred == i for i in range(kmeans.cluster_centers_.shape[0])],cluster_labels,x_pred) #replace each value of predicted test datas
-                                                                                                     #based on assigned values of each cluster
+                                                                                                             #based on assigned values of each cluster
     #print(f"Accuracy: {accuracy_score(image_labels,y_pred) * 100}%") 
     scores.append(accuracy_score(domain_labels,y_pred) * 100)
 plt.figure(figsize=[5,5])
