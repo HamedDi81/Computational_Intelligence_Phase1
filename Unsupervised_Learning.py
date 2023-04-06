@@ -22,12 +22,12 @@ kmeans = KMeans(n_clusters= 5 )
 
 # # dbscan = GaussianMixture()
 # # model=kmeans.fit(Train_features)
-model=kmeans.fit(train_features)
+# model=kmeans.fit(train_features)
 # x_pred = db.fit_predict(train_features)
-x_pred= model.predict(train_features)
-print(f"shape of pred x is {x_pred.shape}")
-cm = confusion_matrix(domain_labels,x_pred)
-ari = adjusted_rand_score(domain_labels , x_pred)
+# x_pred= model.predict(train_features)
+# print(f"shape of pred x is {x_pred.shape}")
+# cm = confusion_matrix(domain_labels,x_pred)
+# ari = adjusted_rand_score(domain_labels , x_pred)
 # accuracy_score
 # count =np.zeros([5,5])
 # for i,data in enumerate(x_pred):
@@ -87,3 +87,24 @@ ari = adjusted_rand_score(domain_labels , x_pred)
 #         elif domain_labels[i]==4 :
 #             count[4,4] +=1
 # print(count)
+import matplotlib.pyplot as plt
+scores = []
+for j in np.unique(Image_labels):
+    kmeans.fit(Train_features[np.where(Image_labels == j )])
+    x_pred = kmeans.predict(train_features) 
+    cluster_labels = []                     #assign a value to each cluster
+    for i in np.unique(x_pred):
+        c = (x_pred == i)
+        label, count = np.unique(domain_labels[c], return_counts=True)
+        cluster_labels.append(label[np.argmax(count)])
+    #print(cluster_labels)               #print the assigned values
+    #test = kmeans.predict(train_features)       #predict the test data
+    #x2 = test.copy()                    #store a copy of predicted test datas
+    y_pred = np.select([x_pred == i for i in range(kmeans.cluster_centers_.shape[0])],cluster_labels,x_pred) #replace each value of predicted test datas
+                                                                                                     #based on assigned values of each cluster
+    #print(f"Accuracy: {accuracy_score(image_labels,y_pred) * 100}%") 
+    scores.append(accuracy_score(domain_labels,y_pred) * 100)
+plt.figure(figsize=[5,5])
+plt.plot(np.arange(1,11),scores)
+plt.ylabel("Accuracy Score")
+plt.xlabel("Label i")
