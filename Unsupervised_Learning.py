@@ -6,21 +6,14 @@ from sklearn.decomposition import PCA
 import numpy as np
 from sklearn.metrics import accuracy_score,confusion_matrix,adjusted_rand_score
 import matplotlib.pyplot as plt
-from sklearn.cluster import KMeans, DBSCAN, MeanShift
+from sklearn.cluster import KMeans, DBSCAN, AgglomerativeClustering
 from sklearn.model_selection import train_test_split
 
 Train_features, Image_labels = load_data(True)
-print(Train_features.shape)
-print(Image_labels.shape)
-print(f'Number of training samples: {Train_features.shape[0]}')
 test_features, image_labels = load_data(False)
-print(test_features.shape)
-print(image_labels.shape)
 train_features, domain_labels = load_data_with_domain_label()
-print(train_features.shape)
-print(domain_labels.shape)
-db = DBSCAN(eps = 20.2 , min_samples=10)
-kmeans = KMeans(n_clusters= 5 )
+
+model = AgglomerativeClustering(n_clusters = 5,linkage = "average")
 
 # # dbscan = GaussianMixture()
 # # model=kmeans.fit(Train_features)
@@ -89,24 +82,26 @@ kmeans = KMeans(n_clusters= 5 )
 #         elif domain_labels[i]==4 :
 #             count[4,4] +=1
 # print(count)
+
+x_pred = model.fit_predict(Train_features)
+
+from sklearn.manifold import TSNE
+from numpy import reshape
+import seaborn as sns
+import pandas as pd
+
+x = Train_features[:1000]
+y = x_pred[:1000]
+
+tsne = TSNE(n_components=2, verbose=1, random_state=123)
+z = tsne.fit_transform(x)
+df = pd.DataFrame()
+df["y"] = y
+df["comp-1"] = z[:, 0]
+df["comp-2"] = z[:, 1]
+
+sns.scatterplot(x="comp-1", y="comp-2", hue=df.y.tolist(),
+                palette=sns.color_palette("hls", 7),
+                data=df).set(title="Iris data T-SNE projection")
 import matplotlib.pyplot as plt
-scores = []
-for j in np.unique(Image_labels):
-    kmeans.fit(Train_features[np.where(Image_labels == j )])
-    x_pred = kmeans.predict(train_features) 
-    cluster_labels = []                     #assign a value to each cluster
-    for i in np.unique(x_pred):
-        c = (x_pred == i)
-        label, count = np.unique(domain_labels[c], return_counts=True)
-        cluster_labels.append(label[np.argmax(count)])
-    #print(cluster_labels)               #print the assigned values
-    #test = kmeans.predict(train_features)       #predict the test data
-    #x2 = test.copy()                    #store a copy of predicted test datas
-    y_pred = np.select([x_pred == i for i in range(kmeans.cluster_centers_.shape[0])],cluster_labels,x_pred) #replace each value of predicted test datas
-                                                                                                     #based on assigned values of each cluster
-    #print(f"Accuracy: {accuracy_score(image_labels,y_pred) * 100}%") 
-    scores.append(accuracy_score(domain_labels,y_pred) * 100)
-plt.figure(figsize=[5,5])
-plt.plot(np.arange(1,11),scores)
-plt.ylabel("Accuracy Score")
-plt.xlabel("Label i")
+plt.show()
