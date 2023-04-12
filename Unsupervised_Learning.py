@@ -17,7 +17,7 @@ Train_features, Image_labels = load_data(True)
 test_features, image_labels = load_data(False)
 train_features, domain_labels = load_data_with_domain_label()
 
-model = AgglomerativeClustering(n_clusters = 5,linkage = "average")
+model = AgglomerativeClustering(n_clusters=None,linkage = "single", distance_threshold=0.5)
 x_pred = model.fit_predict(Train_features)
 
 
