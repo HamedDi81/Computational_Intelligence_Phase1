@@ -8,6 +8,10 @@ from sklearn.metrics import accuracy_score,confusion_matrix,adjusted_rand_score
 import matplotlib.pyplot as plt
 from sklearn.cluster import KMeans, DBSCAN, AgglomerativeClustering
 from sklearn.model_selection import train_test_split
+from sklearn.manifold import TSNE
+from numpy import reshape
+import seaborn as sns
+import pandas as pd
 
 Train_features, Image_labels = load_data(True)
 test_features, image_labels = load_data(False)
@@ -16,10 +20,7 @@ train_features, domain_labels = load_data_with_domain_label()
 model = AgglomerativeClustering(n_clusters = 5,linkage = "average")
 x_pred = model.fit_predict(Train_features)
 
-from sklearn.manifold import TSNE
-from numpy import reshape
-import seaborn as sns
-import pandas as pd
+
 
 x = Train_features[:1000]
 y = x_pred[:1000]
