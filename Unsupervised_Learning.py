@@ -1,7 +1,6 @@
 from load_features_K import load_data , load_data_with_domain_label
 import matplotlib.pyplot as plt
 from sklearn.metrics import davies_bouldin_score,silhouette_score,calinski_harabasz_score
-from Evaluation import cluster_labels
 from sklearn import datasets
 from sklearn.decomposition import PCA,FastICA
 import numpy as np
