@@ -1,4 +1,4 @@
-from load_features_K import load_data , load_data_with_domain_label
+from load_features import load_data , load_data_with_domain_label
 import matplotlib.pyplot as plt
 from sklearn.metrics import davies_bouldin_score,silhouette_score,calinski_harabasz_score
 from sklearn import datasets

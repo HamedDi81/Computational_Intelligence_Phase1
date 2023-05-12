@@ -6,9 +6,9 @@ def load_data(train_data: bool =True) -> Tuple[np.ndarray, np.ndarray]:
   loads train/test features with image labels.  
   """
   if train_data:
-    data = np.load(f'E:/Feature CL Phase 1/train_data.npz')
+    data = np.load(f'train_data.npz') # You should use your own directory path
   else:
-    data = np.load(f'E:/Feature CL Phase 1/test_data.npz')
+    data = np.load(f'test_data.npz') # You should use your own directory path
 
   features = data['features']
   img_labels = data['img_labels']
